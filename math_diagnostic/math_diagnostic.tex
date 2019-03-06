@@ -1,0 +1,197 @@
+\documentclass{beamer}
+\usetheme{ensam}
+\usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage{acronym}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{amsmath}
+\usepackage {algorithmic}
+\usepackage{algorithm}
+\usepackage{eqparbox}
+\usepackage[font=scriptsize]{caption}
+\usetikzlibrary{bayesnet,positioning,calc}
+\tikzstyle{obs} = [latent,fill=lightBlue]
+\tikzstyle{default}=[draw=sexyRed,thick,rounded corners,text width=0.5in,font=\scriptsize,align=center]
+\usepgfplotslibrary{colorbrewer}
+\definecolor{ForestGreen}{RGB}{34,139,34}
+\newcommand{\comment}[1]{\textcolor{ForestGreen}{#1}}
+%algorithmic comment
+\renewcommand\algorithmiccomment[1]{%
+  \hfill\comment{\#\scriptsize\eqparbox{COMMENT}{#1}}%
+}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\title{Math Self Diagnostique}
+\author{\underline{A.Belcaid}}
+\institute{\small ENSA-Fès} 
+
+%tikz bayesian theme
+\usetikzlibrary{bayesnet,positioning,calc}
+\tikzstyle{obs} = [latent,fill=lightBlue]
+\tikzstyle{default}=[draw=sexyRed,thick,rounded corners,text width=0.5in,font=\scriptsize,align=center]
+\DeclareMathOperator{\argmin}{argmin}
+
+\pgfplotsset{every tick label/.append style={font=\tiny}}
+
+
+
+%acronyms
+
+
+% add bibliography
+\usepackage[style=authoryear]{biblatex}
+\renewcommand*{\nameyeardelim}{\addcomma\addspace}
+
+\begin{document}
+\maketitle
+
+\begin{frame}
+\tableofcontents
+\end{frame}
+
+
+\section{Espérance}%
+\label{sec:esperance}
+
+\begin{frame}[<+->]{Espérance}
+  
+  \begin{block}{Enoncé}
+  Une personne lance un \alert{ \textbf{Dé} } à six faces. Vous gagner le
+  nombre points affiché par le dé.
+\end{block}
+
+\vspace*{1cm}
+
+  \begin{enumerate}
+    \item Quelle est \textbf{l'espérance} des points gagnés pour une seul lancement. 
+    \item Même Question après \structure{$\mathbf{2}$} lancements.
+    \item Après \structure{$\mathbf{100}$}
+  \end{enumerate}
+\end{frame}
+
+
+
+\section{probabilité jointe}%
+\label{sec:probabilite_jointe}
+
+\begin{frame}[t]{Probabilité jointe}
+  
+  \begin{block}{Enoncé}
+   Pour deux distributions $X$ et $Y$, choisissez les formules correctes:
+  \end{block}
+  \pause
+\begin{block}{}
+  \begin{itemize}
+    \item[$\square$] $P(x,y) = P(x)P(y)$
+    \item[$\square$] $P(x,y) = P(x|y)P(y)$
+    \item[$\square$] $P(x,y) = P(x|y)P(y|x)$
+    \item[$\square$] $P(x) =\sum_y P(x|y)$
+    \item[$\square$]  $ P(x) = \sum_y P(x,y)$
+    \item[$\square$] Aucune formule
+  \end{itemize} 
+\end{block}
+\end{frame}
+
+\section{Probabilité conditionnelle}%
+\label{sec:probabilite_conditionnelle}
+
+\begin{frame}[t]{Probabilité conditionnelle}
+  
+  \begin{block}{Enoncé}
+    Nous lançons \textbf{deux} Dé uniformes à $\mathbf{6}$ faces. 
+  \end{block}
+
+  \begin{block}{}
+    \begin{enumerate}
+      \item Calculer  la probabilité d'obtenir un \alert{\textbf{double}}.
+      \item Sachant que le résultat obtenu est \alert{inférieur} à
+        $\mathbf{4}$. Calculer la probabilité qu'un \textbf{double}  à
+        été lancé.
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+
+\section{Systèmes d'équations linéaires}%
+\label{sec:systemes_d_equations_lineaires}
+
+\begin{frame}[t]{Équations linéaires}
+  
+  \begin{block}{Enoncé}
+    Sachant que $x = (\dfrac{1}{2}) y + \dfrac{1}{2}(x+1)$ et que 
+    $y = (\dfrac{1}{3})y + (\dfrac{1}{3})(x+2)
+
+    \begin{itemize}
+      \item Quelle est la valeur de $x$
+      \item Quelle est la valeur de $y$
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+
+\section{Logarithmes}%
+\label{sec:logarithmes}
+
+\begin{frame}[t]{Logarithmes}
+  
+  \begin{block}{Enoncé}
+    Selectionner les formules correctes:
+  \end{block}
+  \begin{block}{}
+    \begin{itemize}
+      \item[$\square$]  $2^{xy} = 2^x 2^y$
+      \item[$\square$] $2^{x+y}  = 2^x2^y$
+      \item[$\square$] $2^{x+y} = 2^x + 2^y$
+      \item[$\square$] $log(3^x) = log(3)log(x)$
+      \item[$\square$] $log(3^x) = xlog(3)$
+      \item[$\square$] $log(3^x) = xlog(3)$
+      \item[$\square$] $log(3^x) = 3x$
+      \item[$\square$] Aucune formule
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\section{Structure de données}%
+\label{sec:structure_de_donnees}
+
+\begin{frame}[t]{Structure de données}
+  
+  \begin{block}{Enconé}
+    \small
+    \begin{enumerate}
+    \small
+        \item Quelle est l'opération critique qui est plus rapide dans
+          les \textbf{tables de hashage} que dans les \textbf{listes chainées}
+          \begin{itemize}
+            \scriptsize
+            \item[$\square$] Insérer un élement.
+            \item[$\square$] Tester l'existence d'un élement.
+          \end{itemize}
+        \item En moyenne, quelle est la \alert{\textbf{compléxité}} de
+          cette
+        opération dans une table de hashage.
+          \begin{itemize}
+            \scriptsize
+            \item[$\square$] $\mathcal{O}(1)$
+            \item[$\square$] $\mathcal{O}(n)$
+            \item[$\square$] $\mathcal{O}(log(n))$
+            \item[$\square$] $\mathcal{O}(n^2)$
+            \item[$\square$] Aucne réponse
+          \end{itemize}
+      \item Quelle est la complexité de cette opération pour les listes
+        chainnées:
+          \begin{itemize}
+            \scriptsize
+            \item[$\square$] $\mathcal{O}(1)$
+            \item[$\square$] $\mathcal{O}(n)$
+            \item[$\square$] $\mathcal{O}(log(n))$
+            \item[$\square$] $\mathcal{O}(n^2)$
+            \item[$\square$] Aucne réponse
+          \end{itemize}
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+\end{document}
