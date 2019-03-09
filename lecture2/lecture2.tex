@@ -15,6 +15,7 @@
 \tikzstyle{obs} = [latent,fill=lightBlue]
 \tikzstyle{default}=[draw=sexyRed,thick,rounded corners,text width=0.5in,font=\scriptsize,align=center]
 \usepgfplotslibrary{colorbrewer}
+\usetikzlibrary{decorations.pathmorphing}
 \definecolor{ForestGreen}{RGB}{34,139,34}
 \newcommand{\comment}[1]{\textcolor{ForestGreen}{#1}}
 %algorithmic comment
@@ -434,7 +435,7 @@ attendre l'objectif depuis l'état initial.
       \only<8>{
         \centering
  \includegraphics[width=1\textwidth,
- height=0.8\textheight]{./classic_graph.pdf}
+ height=0.8\textheight]{./images/tiny_graphe.png}
       } 
     \end{column}
   \end{columns}
@@ -577,20 +578,302 @@ l'arbre}}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Recherche en profondeur (DPS)}%
 \label{sub:recherche_en_profondeur_dps_}
-\begin{frame}[t]{Depth first Search (Recherche en profondeur)}
+\begin{frame}[t]{Depth First Search (Recherche en profondeur)}
  
   \centering
   \includegraphics[width=8cm,height=6cm]{./images/depth_first_search.png}
 \end{frame}
 
+\begin{frame}[t]{Depth First Search}
 
+  \centering
+  \includegraphics[width=6cm,height = 4cm]{./images/tiny_graphe.png}
+  \vspace*{1cm}
+  \begin{itemize}
+    \item \textbf{Stratégie} : Développer le noeuds le plus
+      \alert{\textbf{profond}}. 
+    \item \textbf{Implémentation}: Frontière est une
+      \textbf{\structure{PILE}}(LIFO). 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Quiz}
+ 
+  \begin{figure}[htpb]
+  \begin{center}
+  \begin{tikzpicture}[scale=1, transform shape]
+    \node[draw, minimum width=1cm,circle] (S) at (0,0) {S}; 
+    \node[draw, minimum width=1cm,circle] (A) at (2,0) {A}; 
+    \node[draw, minimum width=1cm,circle] (B) at (4,0) {B}; 
+    \node[draw, minimum width=1cm,circle] (C) at (6,0) {C}; 
+    \node[draw, minimum width=1cm,circle] (G) at (8,0) {G}; 
+    \node[draw, minimum width=1cm,circle] (D) at (4,-2) {D}; 
+    \path[draw,->] (S)--(A);
+      \path[draw,->](A)--(B);
+    \path[draw,->](B)--(C);
+      \path[draw,->](C)--(G);
+      \path[draw,->] (S)   to [bend right=30](D);
+      \path[draw,->](D) to [bend right = 30](G);
+  \end{tikzpicture}
+  \end{center}
+  \end{figure}
+  
+  \begin{block}{Question}
+    Donner le chemin calculé par \textbf{DPS} de son exploration du point
+    $\mathbf{S}$ jusqu'au point $\mathbf{G}$. 
+  \end{block}
+\end{frame}
+
+
+\begin{frame}[t]{Propriété d'un algorithme d'exploration}
+ \begin{columns}
+   \begin{column}{0.5\textwidth}
+     \begin{itemize}
+       \small
+       \item<1-> \textbf{Complet}: Assure de trouver une solution s'il elle
+       existe. 
+     \item<2-> \textbf{Optimal} : Trouve la solution avec un \alert{coût}
+       minimal.
+      \item<3-> \textbf{Complexité en temps} 
+      \item<4-> \textbf{Complexité en espace} 
+     \end{itemize} 
+
+     \begin{itemize}
+       \item \structure{\textbf{Arbre d'exploration}}:
+         \begin{itemize}
+           \small
+           \item<5-> $\mathbf{b}$ : facteur de 
+           \item<6->$\mathbf{m}$ : profondeur de l'arbre.
+          \item<7-> Solutions dans differents \textbf{profondeurs} 
+         \end{itemize}
+       \item<8->
+\textbf{Nombre de noeuds} :
+          \scriptsize 
+          $$ 1 + b^2 + b^3 + \ldots +b^m = \alert{\mathcal{O}(b^m)}$$
+     \end{itemize}
+   \end{column}
+   \begin{column}{0.5\textwidth}
+     \begin{figure}[htpb]
+     \begin{center}
+     \begin{tikzpicture}[scale=1, >=stealth]
+       only<4->{
+         \path[draw] (0,0)--(2,-4)--(-2,-4)--cycle ;
+       }   
+       \only<4->{
+         \node[circle,minimum width=5pt,draw,fill=lightBlue,inner sep=0pt] at (0,0) {};
+         \node at (2.2,-0) { \tiny $1$ noeuds};
+       }
+       \only<5->
+       {
+         \node[circle,minimum width=5pt,draw,fill=lightBlue,inner sep=0pt] at
+           (-0.25,-0.5) {};
+         \node[circle,minimum width=5pt,draw,fill=lightBlue,inner sep=0pt] at
+           (0.25,-0.5) {};
+         \node at (2.2,-0.5) {\tiny $b$ noeuds};
+         \path[->,draw,] (-0.25,-0.5) to[bend right=30]node[label=below: $b$] {} (0.25,-0.5);
+       }
+
+       \only<6->{
+         \path[draw,thick,->] (-2.5,0) --node[label=left:$\mathbf{m}$]{} (-2.5,-4);
+
+         \node at (2.2,-1) {\tiny $b^2$ noeuds};
+         \node at (2.2,-1.5) {\tiny $b^3$ noeuds};
+         \node at (2.2,-4.2) {\tiny $b^m$ noeuds};
+
+  }
+
+  \only<7->{
+         %optimal nodes
+         \node[circle,minimum width=5pt,draw,fill=sexyRed,inner sep=0pt] at
+           (0.5,-2.5) {};
+
+         \node[circle,minimum width=5pt,draw,fill=sexyRed,inner sep=0pt] at
+           (0.1,-4) {};
+       }
+     \end{tikzpicture}
+     \end{center}
+     \end{figure}
+   \end{column}
+ \end{columns} 
+\end{frame}
+
+
+
+\begin{frame}[t]{Propriétés DFS}
+  
+ \begin{columns}
+   \begin{column}{0.5\textwidth}
+     \begin{itemize}
+       \small
+     \item \textbf{Noeuds visitées par DPS}:
+         \begin{itemize}
+         \scriptsize
+       \item Noeuds à \textbf{gauche}.
+           \item Peut visiter \textbf{toute} l'arbre
+           \item Si $m$ est fini, Temps est \alert{$\mathcal{O}(b^m)$} 
+         \end{itemize}
+       \item \textbf{Taille de la frontière}:
+         \begin{itemize}
+           \scriptsize
+         \item<2-> \alert{$\mathcal{O}(bm)$}
+         \end{itemize}
+
+       \item \textbf{Est il complet}?:
+           \begin{itemize}
+             \scriptsize
+             \item Au cas où on as pas de \alert{\textbf{cycle}}.
+           \end{itemize}
+         \item \textbf{Est il optimal}?
+            \begin{itemize}
+              \scriptsize
+            \item \textbf{\alert{No}} trouve toujours  le nouds à gauche
+              (indépendemment du coût).
+            \end{itemize}
+     \end{itemize}
+   \end{column}
+   \begin{column}{0.5\textwidth}
+     \begin{figure}[htpb]
+     \begin{center}
+     \begin{tikzpicture}[scale=1, >=stealth]
+      
+         \path[draw] (0,0)--(2,-4)--(-2,-4)--cycle ;
+         \node[circle,minimum width=5pt,draw,fill=lightBlue,inner sep=0pt] at (0,0) {};
+         \node[circle,minimum width=5pt,draw,fill=lightBlue,inner sep=0pt] at
+           (-0.25,-0.5) {};
+         \node[circle,minimum width=5pt,draw,fill=lightBlue,inner sep=0pt] at
+           (0.25,-0.5) {};
+         \path[->,draw,] (-0.25,-0.5) to[bend right=30]node[label=below: $b$] {} (0.25,-0.5);
+
+         %optimal nodes
+         \node[circle,minimum width=5pt,draw,fill=sexyRed,inner sep=0pt] at
+           (0.5,-2.5) {};
+         \node[circle,minimum width=5pt,draw,fill=sexyRed,inner sep=0pt] at
+           (0.1,-4) {};
+         \path[fill=gray!70,draw,thick,opacity=0.5] (0,0)--(-1.4,-4)--(-2,-4)--cycle;
+         \path[fill=gray!50,draw,thick,opacity=0.5] (0,0)--(-0.9,-4)--(-1.4,-4)--cycle;
+         \path[fill=gray!30,draw,thick,opacity=0.5] (0,0)--(0.1,-4)--(-0.9,-4)--cycle;
+         \only<2->{\path[draw, very thick, sexyRed](0,0)--(0.1,-4);}
+     \end{tikzpicture}
+     \end{center}
+     \end{figure}
+   \end{column}
+ \end{columns} 
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Recherche en largeur  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Recherche en largeur (BFS)}%
 \label{sub:recherche_en_largeur_bfs_}
+\begin{frame}[t]{Breadth First Search (BFS)}
+ \centering 
+ \includegraphics[width=10cm,height=6cm]{./images/breath_first_search.png}
+\end{frame}
 
+\begin{frame}[t]{BFS (Recherche en largeur)}
+ \centering 
+ \includegraphics[width=5cm,height=4cm]{./images/tiny_graphe.png}
 
+ \vspace*{1cm}
+ \begin{block}{Propriétés}
+    \begin{itemize}
+      \small
+    \item \textbf{Stratégie}:Developper les noeuds  \alert{superficiels}
+    \item \textbf{Frontière} : est une \alert{File} (FIFO).
+    \end{itemize} 
+ \end{block}
+
+\end{frame}
+
+\begin{frame}[t]{Quiz}
+ 
+  \begin{figure}[htpb]
+  \begin{center}
+  \begin{tikzpicture}[scale=1, transform shape]
+    \node[draw, minimum width=1cm,circle] (S) at (0,0) {S}; 
+    \node[draw, minimum width=1cm,circle] (A) at (2,0) {A}; 
+    \node[draw, minimum width=1cm,circle] (B) at (4,0) {B}; 
+    \node[draw, minimum width=1cm,circle] (C) at (6,0) {C}; 
+    \node[draw, minimum width=1cm,circle] (G) at (8,0) {G}; 
+    \node[draw, minimum width=1cm,circle] (D) at (4,-2) {D}; 
+    \path[draw,->] (S)--(A);
+      \path[draw,->](A)--(B);
+    \path[draw,->](B)--(C);
+      \path[draw,->](C)--(G);
+      \path[draw,->] (S)   to [bend right=30](D);
+      \path[draw,->](D) to [bend right = 30](G);
+  \end{tikzpicture}
+  \end{center}
+  \end{figure}
+  
+  \begin{block}{Question}
+    Donner le chemin calculé par \textbf{BPS} de son exploration du point
+    $\mathbf{S}$ jusqu'au point $\mathbf{G}$. 
+  \end{block}
+\end{frame}
+\begin{frame}[t]{Propriétés BFS}
+
+ \begin{columns}
+   \begin{column}{0.5\textwidth}
+     \begin{itemize}
+       \small
+     \item \textbf{Noeuds visitées par BPS}:
+         \begin{itemize}
+         \scriptsize
+       \item Tous les noeuds d'une superficie.
+       \item Si $m$ est fini, Temps est \alert{$\mathcal{O}(b^s)$} 
+       \item \alert{$s$} est la pronfondeur de la solution.
+         \end{itemize}
+       \item \textbf{Taille de la frontière}:
+         \begin{itemize}
+           \scriptsize
+         \item<2-> \alert{$\mathcal{O}(b^s)$}
+         \end{itemize}
+
+       \item \textbf{Est il complet}?:
+           \begin{itemize}
+             \scriptsize
+           \item Si une solution existe, $s$ est fini. Donc \alert{Oui}.
+           \end{itemize}
+         \item \textbf{Est il optimal}?
+            \begin{itemize}
+              \scriptsize
+            \item \textbf{\alert{OUI}} Si tous les coûts sont $\mathbf{1}$.
+            \end{itemize}
+     \end{itemize}
+   \end{column}
+   \begin{column}{0.5\textwidth}
+     \begin{figure}[htpb]
+     \begin{center}
+     \begin{tikzpicture}[scale=1, >=stealth]
+      
+         \path[draw] (0,0)--(2,-4)--(-2,-4)--cycle ;
+         \node[circle,minimum width=5pt,draw,fill=lightBlue,inner sep=0pt] at (0,0) {};
+         \node[circle,minimum width=5pt,draw,fill=lightBlue,inner sep=0pt] at
+           (-0.25,-0.5) {};
+         \node[circle,minimum width=5pt,draw,fill=lightBlue,inner sep=0pt] at
+           (0.25,-0.5) {};
+         \path[->,draw,] (-0.25,-0.5) to[bend right=30]node[label=below: $b$] {} (0.25,-0.5);
+
+         %optimal nodes
+         \node[circle,minimum width=5pt,draw,fill=sexyRed,inner sep=0pt] at
+           (0.5,-3) {};
+         \node[circle,minimum width=5pt,draw,fill=sexyRed,inner sep=0pt] at
+           (0.1,-4) {};
+
+         %areas
+         \path[fill=gray!70,draw,thick,opacity=0.5]
+           (0,0)--(-0.25,-0.5)--(0.25,-0.5)--cycle;
+         \path[fill=gray!80,draw,thick,opacity=0.5]
+           (-0.25,-0.5)--(-0.5,-1)--(0.5,-1)--(0.25,-0.5)--cycle;
+         \path[fill=gray!90,draw,thick,opacity=0.5]
+           (-0.5,-1)--(-1.5,-3)--(1.5,-3)--(0.5,-1)--cycle;
+         \path[draw,thick] (-1,-2)--(1,-2);
+     \end{tikzpicture}
+     \end{center}
+     \end{figure}
+   \end{column}
+ \end{columns} 
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %  Uniform cost search  %
 %%%%%%%%%%%%%%%%%%%%%%%%%
