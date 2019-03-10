@@ -874,15 +874,143 @@ l'arbre}}.
    \end{column}
  \end{columns} 
 \end{frame}
+
+
+\begin{frame}[t]{DFS VS BFS}
+   \vspace*{2cm}
+  \begin{itemize}
+  \large
+\item Quand est ce qu'il est \textbf{\alert{préferable}} d'utiliser \textbf{DFS}
+  ?\\[1cm]
+\item Quand est ce qu'il est \textbf{\alert{préferable}} d'utiliser \textbf{BFS}
+  ?
+  \end{itemize}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %  Uniform cost search  %
 %%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Recherche uniforme en coût (UCS)}%
 \label{sub:recherche_uniforme_en_cout_ucs_}
-\begin{frame}[t]{Recherche uniforme en coût}
-  
+
+\begin{frame}[t]{Recherche avec un coût}
+ \begin{center}
+   \includegraphics[width=7cm,height=5cm]{./images/cost_sensitive_search.png}
+ \end{center}
+
+ \begin{block}{}
+   BFS trouve le chemin optimal quand le \textbf{cout} de toutes les transitions
+   est $\mathbf{1}$. Nous présentons alors son \textbf{analogue} quand on
+   introduit des coûts \textbf{\alert{différents}}. 
+ \end{block}
 \end{frame}
 
+
+\begin{frame}[t]{Recherche uniforme en coût}
+\centering  
+\includegraphics[width=8cm,height=6cm]{./images/uniform_cost_search.png}
+\end{frame}
+
+
+\begin{frame}[t]{Recherche Uniforme en coùt}
+  
+ \begin{center}
+   \includegraphics[width=6cm,height=4cm]{./images/cost_sensitive_search.png}
+ \end{center}
+
+ \begin{block}{Idées}
+   \begin{itemize}
+  \small
+\item Developper les noeuds les \alert{\textbf{Moins couteux}}.
+\item La frontière est une \alert{\textbf{File d'attente}} (priorité: coût
+  \textbf{accumulé}).
+\end{itemize}
+ \end{block}
+\end{frame}
+
+\begin{frame}[t]{Quiz}
+  \begin{center}
+    \includegraphics[width=8cm,height=4cm]{./images/ucs_quiz.png}
+  \end{center}
+
+\begin{block}{Question}
+  \begin{itemize}
+    \item Donner le chemin  choisi par \textbf{BFS}.
+    \item Donner le chemin choisi par \textbf{UCS} 
+  \end{itemize}
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+%  Propriétés UCS  %
+%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}[t]{Propriétés UCS}
+
+ \begin{columns}
+   \begin{column}{0.5\textwidth}
+     \begin{itemize}
+       \small
+     \item \textbf{Noeuds visitées par UCS}:
+         \begin{itemize}
+         \scriptsize
+       \item Tous les noeuds dont le coùt est \textbf{inférieur} à celui de la
+         solution $\mathbf{C^*}$.
+       \item  complexité temps est $\mathcal{O}(b^{\frac{C^*}{\epsilon}})$.
+        \item $\epsilon = \min_c C$.
+         \end{itemize}
+       \item \textbf{Taille de la frontière}:
+         \begin{itemize}
+           \scriptsize
+         \item<2-> \alert{$\mathcal{O}(b^{\frac{C^*}{\epsilon}})$}
+         \end{itemize}
+
+       \item \textbf{Est il complet}?:
+           \begin{itemize}
+             \scriptsize
+           \item Si une solution existe et tous les arrêtes sont
+             \textbf{positifs} , \alert{Oui}.
+           \end{itemize}
+         \item \textbf{Est il optimal}?
+            \begin{itemize}
+              \scriptsize
+            \item \textbf{\alert{OUI}} Preuve prochaine lecture  ($A^*$).
+            \end{itemize}
+     \end{itemize}
+   \end{column}
+   \begin{column}{0.5\textwidth}
+     \begin{figure}[htpb]
+     \begin{center}
+     \begin{tikzpicture}[scale=1, >=stealth]
+      
+         \path[draw] (0,0)--(2,-4)--(-2,-4)--cycle ;
+         \node[circle,minimum width=5pt,draw,fill=lightBlue,inner sep=0pt] at (0,0) {};
+         \node[circle,minimum width=5pt,draw,fill=lightBlue,inner sep=0pt] at
+           (-0.25,-0.5) {};
+         \node[circle,minimum width=5pt,draw,fill=lightBlue,inner sep=0pt] at
+           (0.25,-0.5) {};
+         \path[->,draw,] (-0.25,-0.5) to[bend right=30]node[label=below: $b$] {} (0.25,-0.5);
+
+         %optimal nodes
+         \node[circle,minimum width=5pt,draw,fill=sexyRed,inner sep=0pt] at
+           (0.5,-3.2) {};
+         \node[circle,minimum width=5pt,draw,fill=sexyRed,inner sep=0pt] at
+           (0.1,-4) {};
+
+         %areas
+         \path[fill=gray!70,draw,thick,opacity=0.5]
+           (0,0)--(-0.5,-1)to[bend right=45](0.5,-1)--cycle;
+         \path[fill=gray!80,draw,thick,opacity=0.5]
+           (-0.5,-1)--(-1,-2)to[bend left=10](1,-2)--(0.5,-1)to[bend
+           left=45](-0.5,-1);
+         \path[fill=gray!90,draw,thick,opacity=0.5] (-1,-2)--(-1.5,-3) to[bend
+           right=15](1.5,-3)--(1,-2)to[bend right=10](-1,-2);
+
+         \end{tikzpicture}
+     \end{center}
+     \end{figure}
+   \end{column}
+ \end{columns} 
+\end{frame}
 
 
 
