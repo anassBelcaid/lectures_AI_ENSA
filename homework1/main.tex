@@ -1,0 +1,175 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{fullpage}
+\usepackage[top=2cm, bottom=4.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{lastpage}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  linkbordercolor={0 0 1}
+}
+ 
+\renewcommand\lstlistingname{Algorithm}
+\renewcommand\lstlistlistingname{Algorithms}
+\def\lstlistingautorefname{Alg.}
+
+\lstdefinestyle{Python}{
+    language        = Python,
+    frame           = lines, 
+    basicstyle      = \footnotesize,
+    keywordstyle    = \color{blue},
+    stringstyle     = \color{green},
+    commentstyle    = \color{red}\ttfamily
+}
+
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.05in}
+
+% Edit these as appropriate
+\newcommand\course{Intelligence artificielle}
+\newcommand\hwnumber{1}                  % <-- homework number
+\newcommand\NetIDa{}           % <-- NetID of person #1
+\newcommand\NetIDb{}           % <-- NetID of person #2 (Comment this line out for problem sets)
+
+\pagestyle{fancyplain}
+\headheight 35pt
+% \lhead{\NetIDa}
+% \lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
+\chead{\textbf{\Large Homework \hwnumber}}
+\rhead{\course \\ \today}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+
+\begin{document}
+
+\section*{Arbre de recherche }%
+\label{sec:probleme_1}
+ Compter le nombre de noeuds dans l'arbre d'exploration \textbf{complet} pour
+ le graphe présenté dans. 
+
+\begin{figure}[htpb]
+  \centering
+  \input{./graph_q1.tex}
+  \caption{Graphe du problème}
+  \label{fig:q1_graph}
+\end{figure}
+
+
+\section*{Depth-First Search}%
+\label{sec:depth_first_search}
+\begin{itemize}
+  \item 
+Exécuter la recherche en \emph{profondeur} (DFS) dans le graphe de la
+Figure~\ref{fig:q1_graph}. On considère les noeuds selon leurs ordre
+\emph{alphabétique} (i.e. Le plan $S\rightarrow X \rightarrow A$ sera considéré avant le plan
+$S\rightarrow X\rightarrow B$). Il est fortement recommandé d'exécuter la recherche dans un
+Brouillon.
+
+\item Donner le chemin choisi par (DFS).
+\end{itemize}
+
+\section*{Breadth-First Search}%
+\label{sec:}
+
+\begin{itemize}
+  \item 
+Exécuter la recherche en \emph{largeur} (BFS) dans le graphe de la
+Figure~\ref{fig:q1_graph}. On considère les noeuds selon leurs ordre
+\emph{alphabétique} (i.e. Le plan $S\rightarrow X \rightarrow A$ sera considéré avant le plan
+$S\rightarrow X\rightarrow B$). Il est fortement recommandé d'exécuter la recherche dans un
+Brouillon.
+
+\item Donner le chemin choisi par (BPS).
+\end{itemize}
+
+
+\section*{Uniform Cost Search}%
+\label{sec:uniform_cost_search}
+
+
+\begin{itemize}
+  \item 
+Exécuter la recherche uniforme en coût (UCS) dans le graphe de la
+  
+Figure~\ref{fig:q4_graph}. On considère les noeuds selon leurs ordre
+\emph{alphabétique} (i.e. Le plan $S\rightarrow X \rightarrow A$ sera considéré avant le plan
+$S\rightarrow X\rightarrow B$). \end{itemize}
+
+\begin{figure}[htpb]
+  \centering
+  \input{./graph_q4.tex}
+  \caption{Graphe Pondéré}
+  \label{fig:q4_graph}
+\end{figure}
+
+
+\section*{Recherche Optimale $A^*$}%
+\label{sec:recherche_optimale_a_}
+
+Dans cette question on ajoute une \emph{heuristique} au graphe pondéré de la
+figure~\ref{fig:q4_graph}.
+
+\begin{figure}[htpb]
+  \centering
+  \input{./graph_q5.tex}
+  \caption{Graphe pondéré avec heuristique}
+  \label{fig:q4_graph}
+\end{figure}
+\begin{itemize}
+    \item Exécuter la recherche optimale $A^*$ et donner l'ordre des
+      développement des neodus.
+    \item Donner le chemin choisi par $A^*$.
+\end{itemize}
+
+\section*{Problème Labyrinthe}%
+\label{sec:section_name}
+Dans les questions suivantes, vous contrôlez un \emph{insecte} dans un
+Labyrinthe rectangulaire de dimensions $\mathbf{M,N}$, présenté dans la figure~\ref{fig:maze}. Dans chaque
+itération, l'insecte peut se déplacer dans un carré vide ou elle peut choisir de
+grader sa position actuelle. Tous les déplacements seront pénalisé par un coût
+$c=1$.
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=8cm,height=6cm]{./hw1_maze1.png}
+  \caption{Labyrinthe}
+  \label{fig:maze}
+\end{figure}
+\subsection*{Un seul insecte}%
+\label{sub:un_seul_insecte}
+
+Vous contrôlez un seul insecte, Figure~\ref{fig:maze}, et vous voulez atteindre
+le point désigné par $X$ (la ruche). 
+
+\begin{enumerate}
+  \item Quel sera la description \textbf{minimale} de votre environnement.
+    \begin{itemize}
+      \item[$\square$] Un entier $d$ qui représente la distance de Manhattan de
+        la ruche.
+      \item[$\square$] Un couple $(x,y)$ représentant la position de l'insecte.
+      \item[$\square$] Un triplet $(x,y,d)$ représentant la position de
+        l'insecte ainsi que la distance à la ruche.
+      \item[$\square$] Ce problème ne peut pas être représenté.
+    \end{itemize}
+  \item Quelle sera la taille de votre environnement en fonction de $N$ et $M$.
+  \item Selectionner les \emph{heuristiques} admissible pour ce problème.
+    \begin{itemize}
+      \item[$\square$] La distance de Manhattan à la ruche.
+      \item[$\square$] La distance de Euclidienne à la ruche.
+      \item[$\square$] Le nombre de pas pris par l'insecte.
+
+    \end{itemize}
+\end{enumerate}
+
+\end{document}
