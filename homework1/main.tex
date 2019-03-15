@@ -42,7 +42,7 @@
 
 \pagestyle{fancyplain}
 \headheight 35pt
-% \lhead{\NetIDa}
+\lhead{\small ENSA-Fès}
 % \lhead{\NetIDa\\\NetIDb}                 % <-- Comment this line out for problem sets (make sure you are person #1)
 \chead{\textbf{\Large Homework \hwnumber}}
 \rhead{\course \\ \today}
@@ -52,6 +52,32 @@
 \headsep 1.5em
 
 \begin{document}
+
+\section*{Description de l'environnement}%
+\label{sec:description_de_l_environnement}
+Donner une \textbf{formulation} complète \footnote{assez précise pour être
+  implémentée} du problème pour chacun des situations
+suivantes:
+
+\begin{itemize}
+  \item Soit \textbf{six} boites en verre alignées, chacune munie d'une serrure.
+    Les cinq premierès contiennent chacune une \textbf{clé} qui permet d'ouvrir
+    la boite \emph{suivante}; la dérnière boite contient une \textbf{banane}.
+    Vous avez la clé de la première boite et vous voulez obtenir la banane.
+
+  \item Vous commencer par la séquence \textbf{ABABAECCEC}, ou plus
+    généralement n'importe quelle séquence composée de $A$, de $B$, de $C$
+    et de $E$. Vous pouvez transformer cette séquence en appliquant les
+    égalités suivantes: $AC=E$, $AB=BC$, $BB=E$ et $Ex=x$ pour n'importe
+    quel $x$. Par exemple $ABBC$ peut être transformée en $AEC$, puis $AC$,
+    puis $E$. Votre objectif est d'atteindre la séquence $\mathbf{E}$.
+  \item Soit un sol constitué d'une grille $n \times n$ de carrés, chaque
+    carré étant initialement \textbf{non peint} (sans fond). Au début, vous
+    êtes sur  un carré non peint; vous pouvez peindre le carré sur votre
+    emplacement ou se déplacer à un carré non peint \emph{adjacent}. Votre
+    objectif est de peindre tout le sol.
+\end{itemize}
+
 
 \section*{Arbre de recherche }%
 \label{sec:probleme_1}
@@ -117,8 +143,7 @@ $S\rightarrow X\rightarrow B$). \end{itemize}
 \section*{Recherche Optimale $A^*$}%
 \label{sec:recherche_optimale_a_}
 
-Dans cette question on ajoute une \emph{heuristique} au graphe pondéré de la
-figure~\ref{fig:q4_graph}.
+Dans cette question on ajoute une \emph{heuristique} au graphe pondéré de la figure~\ref{fig:q4_graph}.
 
 \begin{figure}[htpb]
   \centering
@@ -130,6 +155,29 @@ figure~\ref{fig:q4_graph}.
     \item Exécuter la recherche optimale $A^*$ et donner l'ordre des
       développement des neodus.
     \item Donner le chemin choisi par $A^*$.
+\end{itemize}
+
+
+\section*{Missionnaires et cannibales}%
+\label{sec:missionnaires_et_cannibales}
+Le problèmes des \emph{missionnaires et
+cannibales} est habituellement énoncé
+comme suit: Trois Missionnaires et trois cannibales se trouvent au bord d'une
+rivière. avec un bateau qui peut contenir une ou deux personnes. Trouvez une
+manière de faire passer tout le monde de l'autre coté sans que jamais un groupe
+de missionnaires soit quelque part en présence d'un nombre \textbf{supérieur} de
+cannibales. Ce problème est cèlèbre en
+IA\footnote{https://en.wikipedia.org/wiki/Missionaries\_and\_cannibals\_problem}
+parce que cétait le premier article abordant la formulation de problème d'un
+point de vue analytique.
+
+\begin{itemize}
+  \item Formulez le problème avec précision, en faisant les distinctions
+    nécessaire pour être sûr d'obtenir une solution valide.
+
+  \item Tracez un diagramme de l'ensembre de l'espace des états.
+  \item Implémentez et résolvez ce problème en appelant un algorithme
+    d'exploration approprié.
 \end{itemize}
 
 \section*{Problème Labyrinthe}%
